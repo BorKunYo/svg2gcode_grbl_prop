@@ -13,11 +13,11 @@ shape_preamble = "(shape preamble)"
 shape_postamble = "(shape postamble)"
 #shape_postamble = "Z100)"
 
-"""Print bed width in mm"""
-bed_max_x = 200
+"""Workspace width mm"""
+workspace_max_x = 200
 
-"""Print bed height in mm"""
-bed_max_y = 280
+"""Workspace height in mm"""
+workspace_max_y = 280
 
 """ 
 Used to control the smoothness/sharpness of the curves.
@@ -34,10 +34,10 @@ zTravel = 4
 zDraw = 0
 
 """ feed rate """
-feed_rate = 80000
+feed_rate = 4000
 
 """ decimal precision of gcode"""
-precision = 2
+precision = 4
 
 
 """ scale gcode to fit bed size"""
@@ -46,9 +46,12 @@ auto_scale = False
 """ optimize path - slow for large files"""
 optimise = True
 
+""" should home in x and y at the end? """
+home_when_done = False
+
 """ 
 illustrator exports svg's in points, not mm
 set to "mm" if you don't want to convert to mm
 """
-units = "points"
-#units = "mm"
+#units = "points"
+units = "mm"
