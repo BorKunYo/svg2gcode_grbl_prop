@@ -183,7 +183,7 @@ class polyline(polycommon):
         return d
 
 
-def point_generator(path, mat, flatness):
+def point_generator(path, mat, smoothness):
     if len(simplepath.parsePath(path)) == 0:
         return
 
@@ -197,7 +197,7 @@ def point_generator(path, mat, flatness):
         simpletransform.applyTransformToPath(mat, p)
 
     for sp in p:
-        cspsubdiv.subdiv(sp, flatness)
+        cspsubdiv.subdiv(sp, smoothness)
         for csp in sp:
             ctrl_pt1 = csp[0]
             ctrl_pt2 = csp[1]

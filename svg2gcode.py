@@ -55,8 +55,9 @@ def get_shapes(path, auto_scale=True):
     if auto_scale:
         print("\nauto scaling")
 
-        scale_x = workspace_max_x / max(width, height)
-        scale_y = workspace_max_y / max(width, height)
+        scale_x = workspace_max_x / width
+        scale_y = workspace_max_y / height
+
         scale_x = min(scale_x, scale_y)
         scale_y = scale_x
 
@@ -65,7 +66,7 @@ def get_shapes(path, auto_scale=True):
 
     for elem in root.iter():
 
-        print(f'- trying elem {elem}')
+        #print(f'- trying elem {elem}')
 
         try:
             _, tag_suffix = elem.tag.split('}')
@@ -75,7 +76,7 @@ def get_shapes(path, auto_scale=True):
 
         if tag_suffix in svg_shapes:
 
-            print(f'found shape: {tag_suffix}')
+            #print(f'found shape: {tag_suffix}')
             shape_class = getattr(shapes_pkg, tag_suffix)
             shape_obj = shape_class(elem)
             d = shape_obj.d_path()
@@ -161,6 +162,39 @@ def write_file(output, commands):
     timer(t1, "writing file     ")
 
 
+def find_bb(shapes):
+    minx=10000000
+    maxx =-10000000
+    miny=100000000
+    maxy=-10000000
+    
+    for s in shapes:
+        sx, sy = s[0]
+        ex, ey = s[1]
+
+        if sx < minx:
+            minx = sx
+        if sx > maxx:
+            maxx = sx
+            
+        if ex < minx:
+            minx = ex
+        if ex > maxx:
+            maxx = ex
+
+        if sy < miny:
+            miny = sy
+        if sy > maxy:
+            maxy = sy
+
+        if ey < miny:
+            miny = ey
+        if ey > maxy:
+            maxy = ey
+
+    return [minx, maxx, miny, maxy]
+
+
 def main(file_path, output):
     shapes = get_shapes(file_path, auto_scale)
 
@@ -181,9 +215,12 @@ def main(file_path, output):
 
         commands = shapes_2_gcode(new_order)
 
+        print(find_bb(new_order))
+
     else:
 
         commands = shapes_2_gcode(shapes)
+        print(find_bb(shapes))
 
     write_file(output, commands)
 

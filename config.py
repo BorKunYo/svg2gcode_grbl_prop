@@ -14,10 +14,10 @@ shape_postamble = "(shape postamble)"
 #shape_postamble = "Z100)"
 
 """Workspace width mm"""
-workspace_max_x = 200
+workspace_max_x = 420
 
 """Workspace height in mm"""
-workspace_max_y = 280
+workspace_max_y = 600
 
 """ 
 Used to control the smoothness/sharpness of the curves.
@@ -25,13 +25,13 @@ Smaller the value greater the sharpness. Make sure the
 value is greater than 0.1
 
 """
-smoothness = 0.02
+smoothness = 1
 
 """ height that the z axis will use to travel between strokes """
-zTravel = 4
+zTravel = 0
 
 """ height that the z axis will use to draw """
-zDraw = 0
+zDraw = -50
 
 """ feed rate """
 feed_rate = 4000
@@ -41,7 +41,7 @@ precision = 4
 
 
 """ scale gcode to fit bed size"""
-auto_scale = False
+auto_scale = True
 
 """ optimize path - slow for large files"""
 optimise = True
